@@ -96,7 +96,7 @@
       .user-business-container {
         width: 100%;
         text-align: center;
-        margin-top: 103px;
+        margin-top: 70px;
         margin-bottom: 50px;
         flex-shrink: 0;
       }
@@ -408,6 +408,62 @@
       .proceed-with-ads:active {
         color: var(--text-light-primary);
       }
+      /* Footer / Bottom Nav */
+      footer.bottom-nav {
+        background-color: #151515;
+        padding: 8px 0;
+        position: fixed; /* Keep fixed */
+        bottom: 0;
+        left: 0; /* Anchor to left */
+        right: 0; /* Anchor to right */
+        width: 100%; /* Take full viewport width */
+        max-width: var(--card-max-width); /* Max width */
+        margin: 0 auto; /* Center the footer */
+        z-index: 50;
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.15);
+        box-sizing: border-box; /* Include padding in width */
+        /* Adjust position if app-container has rounded corners */
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        margin: 0 auto;
+      }
+
+      .nav-item {
+        display: block;
+        flex: 1;
+        text-align: center;
+        padding: 5px;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .nav-item img {
+        width: 28px;
+        height: 28px;
+        display: block;
+        opacity: 0.6;
+        transition: opacity 0.2s ease;
+      }
+
+      .nav-item:hover img {
+        opacity: 0.8;
+      }
+
+      .nav-item.active img {
+        opacity: 1;
+      }
     </style>
   </head>
   <body>
@@ -517,6 +573,27 @@
         <a href="home.html" class="proceed-with-ads">Proceed with Ads</a>
       </div>
     </div>
+
+    <footer class="bottom-nav">
+      <div class="nav-icons">
+        <a href="home.html" class="nav-item" title="Home">
+          <img src="normal/logo.png" alt="Home" />
+        </a>
+        <a href="search.html" class="nav-item" title="Search Jobs">
+          <img src="normal/search.png" alt="Search Jobs" />
+        </a>
+        <!-- Current page - marked active -->
+        <a href="Monetization.html" class="nav-item active" title="Starred">
+          <img src="green/star-green.png" alt="Starred" />
+        </a>
+        <a href="favorite.html" class="nav-item" title="Liked">
+          <img src="normal/heart.png" alt="Liked" />
+        </a>
+        <a href="signin1.html" class="nav-item" title="Profile">
+          <img src="normal/user.png" alt="Profile" />
+        </a>
+      </div>
+    </footer>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
