@@ -6,7 +6,8 @@
     <title>Register</title>
 
     <!-- Favicon Links -->
-    <link rel="icon" type="image/png" href="green/logo--green.png" />
+    <script type="text/javascript" nonce="46db8db671e041fab253822afa5" src="//local.adguard.org?ts=1744814149720&amp;type=content-script&amp;dmn=cdn.discordapp.com&amp;url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F1240634532714250313%2F1362089236043530342%2Fregister.html%3Fex%3D68011ff4%26is%3D67ffce74%26hm%3D9f5e03b470a1ff583e457397e75cbce25e7ac2fbf88ff4738161206b48c993cd%26&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script>
+<script type="text/javascript" nonce="46db8db671e041fab253822afa5" src="//local.adguard.org?ts=1744814149720&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="icon" type="image/png" href="green/logo--green.png" />
     <link rel="shortcut icon" type="image/png" href="green/logo--green.png" />
     <!-- Optional: Apple Touch Icon (for iOS home screen) -->
     <!-- <link rel="apple-touch-icon" href="green/logo--green.png"> -->
@@ -57,17 +58,19 @@
       .back-button img {
         display: block;
         height: 20px;
+        margin-top: 5px;
+        margin-left: 8px;
         width: auto;
         transform: rotate(180deg);
       }
 
       /* Header Text */
       h1 {
-        font-size: 30px;
+        font-size: 1.7em;
         font-weight: 700; /* Bold */
-        margin-bottom: 80px;
-        margin-top: 0;
-        color: #fcfff7; /* Updated White */
+        margin-bottom: 48px;
+        margin-top: -10px;
+        color: #ffffff; /* Updated White */
         text-align: center;
       }
 
@@ -86,9 +89,10 @@
       }
 
       label {
-        font-size: 14px;
-        color: #ffffffb7; /* Grey derived from new white */
+        font-size: 13px;
+        color: #a0a2a4; /* Grey derived from new white */
         margin-bottom: 8px;
+        font-weight: 500;
       }
 
       input[type="text"],
@@ -96,12 +100,12 @@
       input[type="tel"],
       input[type="password"],
       input[type="date"] {
-        background-color: #282828; /* Darker grey input */
+        background-color: #2c2f31; /* Darker grey input */
         border: none;
         border-radius: 12px;
-        padding: 17px 14px;
-        font-size: 18px;
-        color: #b8b8b88a; /* Input text color */
+        padding: 14px 14px;
+        font-size: 16px;
+        color: #ffffff; /* Input text color */
         outline: none;
         width: 100%;
         color-scheme: dark;
@@ -133,7 +137,7 @@
       }
 
       input::placeholder {
-        color: #7a7c76; /* Grey derived for placeholder */
+        color: #77797b; /* Grey derived for placeholder */
       }
 
       /* Custom Password Toggle Button - Kept this */
@@ -161,26 +165,26 @@
       /* Create Account Button */
       .create-account-button {
         background-color: #01b581; /* Updated Green */
-        color: #121212; /* Dark text */
+        color: #151515; /* Dark text */
         border: none;
-        border-radius: 30px;
+        border-radius: 50px;
         padding: 17px;
-        font-size: 17px;
+        font-size: 16px;
         /* Changed font-weight to extra bold (800) */
-        font-weight: 800;
+        font-weight: 700;
         cursor: pointer;
         text-align: center;
         width: 100%;
-        transition: background-color 0.2s ease;
+        transition: background-color 0.2s ease, opacity 0.2s ease;
       }
 
       .create-account-button:hover {
-        background-color: #01d496; /* Lighter shade of Green */
+        opacity: 0.9;
       }
 
       /* Already Have Account Link */
       .login-link {
-        color: #a0a29d;
+        color: #427db8;
         text-decoration: none;
         font-size: 14px;
         text-align: center;
@@ -191,7 +195,7 @@
         padding: 40px 20px 15px 20px;
       } /* Adjusted padding */
       .login-link:hover {
-        color: #659ad6; /* Slightly bluish white for hover */
+        color: #000000; /* Slightly bluish white for hover */
       }
     </style>
   </head>

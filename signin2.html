@@ -9,7 +9,8 @@
     <title>Log In</title>
 
     <!-- Favicon Links -->
-    <link rel="icon" type="image/png" href="green/logo--green.png" />
+    <script type="text/javascript" nonce="46db8db671e041fab253822afa5" src="//local.adguard.org?ts=1744814149720&amp;type=content-script&amp;dmn=cdn.discordapp.com&amp;url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F1240634532714250313%2F1362089236630601779%2Fsignin2.html%3Fex%3D68011ff4%26is%3D67ffce74%26hm%3D527847c8cc91bae2ce4c9a11da2307e00af7ce407202f0ba9ea9afca1346e251%26&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script>
+<script type="text/javascript" nonce="46db8db671e041fab253822afa5" src="//local.adguard.org?ts=1744814149720&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="icon" type="image/png" href="green/logo--green.png" />
     <link rel="shortcut icon" type="image/png" href="green/logo--green.png" />
     <!-- Optional: Apple Touch Icon (for iOS home screen) -->
     <!-- <link rel="apple-touch-icon" href="green/logo--green.png"> -->
@@ -33,7 +34,7 @@
         height: 100%;
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, Helvetica, Arial, sans-serif;
-        background-color: #181a1b;
+        background-color: #151515;
         color: #e0e0e0;
         overflow: hidden;
       }
@@ -44,34 +45,29 @@
         margin: 0 auto;
         display: flex;
         flex-direction: column;
-        background-color: #181a1b;
+        background-color: #151515;
       }
       .header {
-        padding: 40px 20px 15px 20px;
+        padding: 50px 20px 15px 20px;
       } /* Adjusted padding */
       .back-button {
         text-decoration: none;
         display: inline-block;
         cursor: pointer;
       }
-      .back-button img {
+         .back-button img {
         display: block;
         height: 20px;
         width: auto;
         transform: rotate(180deg);
       }
-      .main-content {
-        flex-grow: 1;
-        padding: 10px 30px 30px 30px;
-        display: flex;
-        flex-direction: column;
-      }
       h1 {
-        font-size: 1.9em;
+        font-size: 1.7em;
         font-weight: 700;
         color: #ffffff;
         text-align: center;
         margin-bottom: 45px;
+        margin-top: 10px;
       }
       .form-group {
         margin-bottom: 25px;
@@ -91,17 +87,13 @@
         padding: 15px 18px;
         background-color: #2c2f31;
         border: none;
-        border-radius: 10px;
+        border-radius: 12px;
         color: #ffffff;
         font-size: 1em;
         font-family: "Inter", sans-serif;
       }
       input::placeholder {
-        color: #77797b;
-      }
-      input:focus {
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(0, 207, 148, 0.3);
+        color: #77797b; /* Grey derived for placeholder */
       }
       .password-wrapper {
         position: relative;
@@ -112,20 +104,20 @@
         top: 50%;
         transform: translateY(-50%);
         cursor: pointer;
-        color: #a0a2a4;
+        color: #a0a29dc2;
         font-size: 1.2em;
         user-select: none;
       }
       .toggle-password.visible {
-        color: #00cf94;
+        color: #01b581;
       }
       .forgot-password {
         display: block;
-        margin-top: -10px;
-        margin-bottom: 40px;
-        color: #00cf94;
+        margin-top: -15px;
+        margin-bottom: 30px;
+        color: #427db8;
         text-decoration: none;
-        font-size: 0.9em;
+        font-size: 0.8em;
         font-weight: 500;
         text-align: left;
       }
@@ -135,7 +127,7 @@
       .btn-login {
         width: 100%;
         padding: 16px 20px;
-        background-color: #00cf94;
+        background-color: #01b581;
         color: #151515;
         border: none;
         border-radius: 50px;
@@ -152,6 +144,12 @@
       .keyboard-placeholder {
         display: none;
       }
+      .main-content {
+        flex-grow: 1;
+        padding: 10px 30px 30px 30px;
+        display: flex;
+        flex-direction: column;
+      }
     </style>
   </head>
   <body>
@@ -164,7 +162,7 @@
       </div>
 
       <div class="main-content">
-        <h1>Fancy a job?</h1>
+        <h1>Looking for a job?</h1>
 
         <!-- Form ID is still useful for selecting elements -->
         <form id="login-form">
