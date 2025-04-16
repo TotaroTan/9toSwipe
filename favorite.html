@@ -2,14 +2,11 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <!-- Removed max-scale and user-scalable -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Favorite</title>
     <!-- Favicon Links -->
     <link rel="icon" type="image/png" href="green/logo--green.png" />
     <link rel="shortcut icon" type="image/png" href="green/logo--green.png" />
-    <!-- Optional: Apple Touch Icon (for iOS home screen) -->
-    <!-- <link rel="apple-touch-icon" href="green/logo--green.png"> -->
     <!-- Link to Google Fonts for Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,49 +16,49 @@
     />
 
     <style>
+      /* --- ADDED :root variables --- */
+      :root {
+        --card-max-width: 600px; /* Or your preferred max width */
+        --footer-height: 60px; /* Define footer height */
+      }
+      /* --------------------------- */
+
       /* --- Body styles --- */
       html,
       body {
         margin: 0;
         padding: 0;
         width: 100%;
-        /* Height 100% ensures body takes up space for fixed footer padding */
         height: 100%;
         background-color: #151515;
         font-family: "Inter", Arial, sans-serif;
         color: #e0e0e0;
-        /* Overflow hidden prevents body scroll, forcing scroll within container */
-        overflow: hidden;
+        overflow: hidden; /* Prevent body scrolling */
       }
 
       /* --- App Container --- */
       .app-container {
         width: 100%;
         max-width: var(--card-max-width);
-        height: 100vh; /* Keep fixed height */
-        margin: 0 auto;
+        height: 100vh; /* Full viewport height */
+        margin: 0 auto; /* Center horizontally */
         background-color: #151515;
         position: relative;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
-        /* --- ADDED: Padding for fixed footer --- */
+        /* --- Padding FOR fixed footer --- */
         padding-bottom: var(--footer-height);
-        /* Overflow hidden ensures children respect container bounds */
-        overflow: hidden;
+        overflow: hidden; /* Container clips content */
       }
 
       @media (min-width: 768px) {
-        /* On larger screens, allow margin and rounded corners */
-        /* Adjust height calculation if margin is added */
+        /* Optional: Add margin/radius on larger screens */
         .app-container {
-          height: calc(
-            100vh - 40px
-          ); /* Example: Adjust for 20px top/bottom margin */
+          height: calc(100vh - 40px);
           margin: 20px auto;
           border-radius: 10px;
-          /* Adjust padding bottom if needed, but usually fine */
           padding-bottom: var(--footer-height);
         }
       }
@@ -69,12 +66,12 @@
       /* --- Top Bar --- */
       .top-bar {
         background: #ededed;
-        padding: 39px 16px; /* Simpler padding */
+        padding: 40px 16px; /* Simpler padding */
         position: relative;
         text-align: center;
         flex-shrink: 0;
         border-bottom: 1px solid #151515;
-        z-index: 5; /* Ensure above job list if overlapping */
+        z-index: 5;
       }
 
       .title {
@@ -92,9 +89,8 @@
 
       /* --- Job List --- */
       .job-list {
-        flex-grow: 1;
-        /* --- ADDED BACK: Allow internal scrolling --- */
-        overflow-y: auto;
+        flex-grow: 1; /* Fill space */
+        overflow-y: auto; /* Enable internal scrolling */
         padding: 10px;
         background: #151515;
         /* Scrollbar hiding styles */
@@ -105,7 +101,7 @@
         -ms-overflow-style: none;
       }
 
-      /* Job Item Styling (mostly unchanged) */
+      /* Job Item Styling */
       .job-item {
         display: flex;
         align-items: center;
@@ -114,14 +110,14 @@
         border: 1px solid #edededc9;
         border-radius: 7px;
         padding: 15px;
-        margin: 5px 0 15px 0;
+        margin: 0 0 15px 0; /* Only bottom margin */
         flex-wrap: nowrap;
         opacity: 1;
         transition: opacity 0.5s ease;
       }
       .job-item:last-child {
         margin-bottom: 0;
-      }
+      } /* Remove margin from last item */
       .job-item.removing {
         opacity: 0;
       }
@@ -179,22 +175,18 @@
         background-color: #018a61;
       }
 
-      /* --- MODIFIED: Footer styles --- */
+      /* --- Footer styles --- */
       footer.bottom-nav {
         background-color: #151515;
         padding: 8px 0;
-        /* --- CHANGED to fixed positioning --- */
-        position: fixed;
+        position: fixed; /* Fixed to viewport */
         bottom: 0;
         left: 0;
         width: 100%;
-        /* --- Use variable for height --- */
-        height: var(--footer-height);
+        height: var(--footer-height); /* Use variable */
         box-sizing: border-box;
-        /* Remove flex-shrink, not needed for fixed */
         box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.15);
-        /* --- Ensure it's on top --- */
-        z-index: 100;
+        z-index: 100; /* High z-index */
       }
 
       .nav-icons {
@@ -202,8 +194,7 @@
         justify-content: space-around;
         align-items: center;
         height: 100%;
-        /* --- Center icons within the fixed footer using max-width --- */
-        max-width: var(--card-max-width);
+        max-width: var(--card-max-width); /* Center within max width */
         margin: 0 auto;
       }
       .nav-item {
@@ -234,7 +225,7 @@
     </style>
   </head>
   <body>
-    <!-- App Container holds everything -->
+    <!-- App Container holds scrollable content -->
     <div class="app-container">
       <div class="top-bar">
         <div class="title">Favorite</div>
@@ -244,9 +235,10 @@
       <div class="job-list" id="job-list">
         <!-- Job items loaded by JS -->
       </div>
-      <!-- No footer in this version -->
     </div>
+    <!-- End app-container -->
 
+    <!-- Footer is OUTSIDE the container and fixed -->
     <footer class="bottom-nav">
       <div class="nav-icons">
         <a href="home.html" class="nav-item" title="Home">
@@ -261,16 +253,15 @@
         <a href="favorite.html" class="nav-item active" title="Liked">
           <img src="green/heart-green.png" alt="Liked" />
         </a>
-        <a href="signin1.html" class="nav-item" title="Profile">
+        <a href="user.html" class="nav-item" title="Profile">
+          <!-- Changed link back to user.html -->
           <img src="normal/user.png" alt="Profile" />
         </a>
       </div>
     </footer>
 
     <script>
-      // --- JAVASCRIPT REMAINS THE SAME ---
-      // It correctly loads data, generates items, updates count,
-      // and handles removal independent of the container's scaling method.
+      // --- JAVASCRIPT (No changes needed from previous correct version) ---
       const realJobData = [
         { company: "Google", domain: "google.com", title: "UX Designer" },
         { company: "Meta", domain: "meta.com", title: "Software Engineer, AI" },
@@ -428,9 +419,9 @@
       }
 
       function goBack() {
+        // Added goBack function as it was referenced in prev example
         window.history.back();
-        // window.location.href = 'home.html'; // Or specific page
-        console.log("Back arrow clicked");
+        console.log("Back action triggered (JS)");
       }
 
       document.addEventListener("DOMContentLoaded", function () {
