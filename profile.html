@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Profile</title>
-<!-- Favicon Links -->
+    <title>Profile</title>
+    <!-- Favicon Links -->
     <link rel="icon" type="image/png" href="green/logo--green.png" />
     <link rel="shortcut icon" type="image/png" href="green/logo--green.png" />
     <!-- Optional: Apple Touch Icon (for iOS home screen) -->
@@ -331,7 +331,6 @@
 
         <!-- Replaced button with anchor tag -->
         <a href="user.html" class="save-button">Save changes</a>
-
       </form>
     </div>
 
@@ -357,7 +356,9 @@
         form.addEventListener("submit", function (event) {
           // Prevent the default form submission behavior (e.g., page reload on Enter press)
           event.preventDefault();
-          console.log("Form submit event detected (prevented default action). Navigation handled by link.");
+          console.log(
+            "Form submit event detected (prevented default action). Navigation handled by link."
+          );
           // No alert needed here as the link handles navigation
         });
       }
