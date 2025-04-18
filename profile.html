@@ -3,12 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
-    <!-- Favicon Links -->
-    <link rel="icon" type="image/png" href="green/logo--green.png" />
-    <link rel="shortcut icon" type="image/png" href="green/logo--green.png" />
-    <!-- Optional: Apple Touch Icon (for iOS home screen) -->
-    <!-- <link rel="apple-touch-icon" href="green/logo--green.png"> -->
+    <title>Edit Profile</title>
+
     <!-- Google Fonts - Inter (Regular 400, Medium 500, Bold 700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,8 +22,8 @@
 
       html,
       body {
-        height: 100%; /* Ensure html and body take full height */
-        overflow: hidden; /* Prevent scrolling on body itself */
+        height: 100%;
+        overflow: hidden;
       }
 
       body {
@@ -35,7 +31,6 @@
           Roboto, Helvetica, Arial, sans-serif;
         background-color: #01b581; /* Green background for form area */
         color: #d9d9d9;
-        /* min-height: 100vh; Replaced by height: 100% */
         display: flex;
         flex-direction: column;
       }
@@ -44,8 +39,6 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        /* REMOVED overflow-y: auto; We don't want this container to scroll */
-        /* We assume content WILL fit due to flexible spacing */
         height: 100%; /* Make container explicitly take full body height */
       }
 
@@ -136,25 +129,19 @@
 
       .profile-form {
         background-color: #01b581;
-        /* MODIFIED Vertical Padding: Use clamp with vh */
-        padding: clamp(15px, 3vh, 25px) /* Top padding */ 25px
-          /* Left/Right padding */ clamp(15px, 3vh, 30px); /* Bottom padding */
+        padding: clamp(15px, 3vh, 25px) 25px clamp(15px, 3vh, 30px);
         flex-grow: 1;
-        /* Allow internal form scrolling ONLY if absolutely necessary (e.g., keyboard pushes content up) */
-        /* Consider adding overflow-y: auto here if needed, but try without first */
-        overflow-y: auto;
+        overflow-y: auto; /* Allow form scrolling if needed */
       }
 
       .form-group {
-        /* MODIFIED Margin Bottom: Use clamp with vh */
         margin-bottom: clamp(10px, 2vh, 20px);
-        position: relative;
+        position: relative; /* Needed for absolute positioning of icon */
       }
       .form-group label {
         display: block;
         font-size: 15px;
         color: #151515;
-        /* MODIFIED Margin Bottom: Use clamp with vh */
         margin-bottom: clamp(4px, 1vh, 8px);
         font-weight: 500; /* Medium */
         font-family: "Inter", sans-serif;
@@ -162,8 +149,7 @@
       .form-group input {
         width: 100%;
         padding: 14px 16px;
-        height: 48px; /* Keep fixed height for consistency, or make scalable */
-        /* Example scalable height: height: clamp(40px, 6vh, 48px); */
+        height: 48px; /* Fixed height for consistency */
         border: 2px solid transparent;
         border-radius: 8px;
         background-color: #ffffff;
@@ -183,43 +169,42 @@
         outline: none;
         border-color: #151515;
       }
+      /* Ensure password input has space for the icon */
       .form-group input[type="password"],
-      .form-group input[type="text"][id="password"] {
-        padding-right: 45px; /* Space for the icon */
+      .form-group input[type="text"][id="password"] { /* Target text type only if ID is password */
+          padding-right: 45px; /* Adjust as needed based on icon size/position */
       }
 
+      /* --- PRECISELY CENTERED ICON STYLES (Relative to Input) --- */
       .password-toggle-icon {
         position: absolute;
-        right: 15px;
-        bottom: 12px; /* (Input height 48px - Icon height 24px) / 2 */
-        height: 24px;
-        width: 24px;
+        right: 15px;        /* Horizontal position */
+        /* Remove top positioning */
+        bottom: 12px;       /* Position bottom edge 12px from the form-group bottom */
+                            /* Calculation: (Input Height 48px - Icon Height 24px) / 2 = 12px */
+        /* Remove transform */
+        height: 24px;       /* Define the icon's height */
+        width: 24px;        /* Define the icon's width */
+        cursor: pointer;
+        z-index: 2;
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
-        color: #151515;
-        font-size: 20px;
-        z-index: 2;
-      }
-      .password-toggle-icon::before {
-        content: "👁️";
-        line-height: 1;
-        display: block;
-        font-family: sans-serif;
-      }
-      .password-toggle-icon.visible::before {
-        content: "👁️‍🗨️";
-        font-family: sans-serif;
       }
 
-      /* Style for the anchor tag to look like a button */
+      .password-toggle-icon img {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+      }
+      /* --- End of Icon Styles --- */
+
+
       .save-button {
-        display: block; /* Changed from inline */
+        display: block;
         width: 100%;
-        /* MODIFIED Vertical Padding/Margin: Use clamp with vh */
-        padding: clamp(12px, 2vh, 16px) 16px; /* Top/Bottom padding flexible */
-        margin-top: clamp(15px, 3vh, 30px); /* Margin flexible */
+        padding: clamp(12px, 2vh, 16px) 16px;
+        margin-top: clamp(15px, 3vh, 30px);
         background-color: #151515;
         color: #01b581;
         border: none;
@@ -326,27 +311,41 @@
             value="************"
             placeholder="Enter new password or leave blank"
           />
-          <span class="password-toggle-icon" id="togglePassword"></span>
+          <!-- Icon container with image inside -->
+          <span class="password-toggle-icon" id="togglePassword">
+              <img src="normal/eye-close.png" alt="Show password" id="passwordEyeIcon">
+          </span>
         </div>
 
         <!-- Replaced button with anchor tag -->
         <a href="user.html" class="save-button">Save changes</a>
+
       </form>
     </div>
 
     <script>
-      // Password toggle script remains the same
+      // --- Password toggle script for images ---
       const togglePassword = document.getElementById("togglePassword");
       const passwordInput = document.getElementById("password");
+      const passwordEyeIcon = document.getElementById("passwordEyeIcon"); // Get the image element
 
-      if (togglePassword && passwordInput) {
+      // Define the image paths (Make sure these are correct!)
+      const eyeIconVisiblePath = "normal/eye.png"; // <<< Path when password is VISIBLE
+      const eyeIconHiddenPath = "normal/eye-close.png";       // <<< Path when password is HIDDEN
+
+      if (togglePassword && passwordInput && passwordEyeIcon) { // Check all elements exist
         togglePassword.addEventListener("click", function (event) {
-          const type =
-            passwordInput.getAttribute("type") === "password"
-              ? "text"
-              : "password";
+          const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
           passwordInput.setAttribute("type", type);
-          this.classList.toggle("visible", type === "text");
+
+          // Change the image source and alt text based on visibility
+          if (type === "text") { // Password is now visible
+            passwordEyeIcon.src = eyeIconVisiblePath;
+            passwordEyeIcon.alt = "Hide password";
+          } else { // Password is now hidden
+            passwordEyeIcon.src = eyeIconHiddenPath;
+            passwordEyeIcon.alt = "Show password";
+          }
         });
       }
 
@@ -356,9 +355,7 @@
         form.addEventListener("submit", function (event) {
           // Prevent the default form submission behavior (e.g., page reload on Enter press)
           event.preventDefault();
-          console.log(
-            "Form submit event detected (prevented default action). Navigation handled by link."
-          );
+          console.log("Form submit event detected (prevented default action). Navigation handled by link.");
           // No alert needed here as the link handles navigation
         });
       }
