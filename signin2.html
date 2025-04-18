@@ -194,7 +194,7 @@
               />
               <!-- MODIFIED: Changed span content to an img tag -->
               <span class="toggle-password" id="togglePassword">
-                <img src="normal/eye.png" alt="Show password" id="eyeIcon"/>
+                <img src="normal/eye-close.png" alt="Show password" id="eyeIcon"/>
               </span>
             </div>
           </div>
@@ -217,8 +217,8 @@
       const eyeIcon = document.getElementById("eyeIcon"); // Get the image element
 
       // Define the image paths
-      const eyeIconPath = "normal/eye.png";
-      const eyeSlashedIconPath = "normal/eye-close.png"; // <<< CHANGE THIS if your visible icon has a different name/path
+      const eyeIconPath = "normal/eye-close.png";
+      const eyeSlashedIconPath = "normal/eye.png"; // <<< CHANGE THIS if your visible icon has a different name/path
 
       if (togglePasswordButton && passwordInput && eyeIcon) { // Check all elements exist
         togglePasswordButton.addEventListener("click", function () {
