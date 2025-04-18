@@ -3,14 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
-
-    <!-- Favicon Links -->
-    <script type="text/javascript" nonce="46db8db671e041fab253822afa5" src="//local.adguard.org?ts=1744814149720&amp;type=content-script&amp;dmn=cdn.discordapp.com&amp;url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F1240634532714250313%2F1362089236043530342%2Fregister.html%3Fex%3D68011ff4%26is%3D67ffce74%26hm%3D9f5e03b470a1ff583e457397e75cbce25e7ac2fbf88ff4738161206b48c993cd%26&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script>
-<script type="text/javascript" nonce="46db8db671e041fab253822afa5" src="//local.adguard.org?ts=1744814149720&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="icon" type="image/png" href="green/logo--green.png" />
-    <link rel="shortcut icon" type="image/png" href="green/logo--green.png" />
-    <!-- Optional: Apple Touch Icon (for iOS home screen) -->
-    <!-- <link rel="apple-touch-icon" href="green/logo--green.png"> -->
+    <title>Sign Up</title>
     <!-- Added Google Fonts Link for Inter, including weight 800 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,7 +25,6 @@
       }
 
       body {
-        /* Updated font-family to Inter */
         font-family: "Inter", sans-serif;
         background-color: #151515; /* Dark background */
         color: #fcfff7; /* Updated White */
@@ -58,19 +50,17 @@
       .back-button img {
         display: block;
         height: 20px;
-        margin-top: 5px;
-        margin-left: 8px;
         width: auto;
         transform: rotate(180deg);
       }
 
       /* Header Text */
       h1 {
-        font-size: 1.7em;
+        font-size: 30px;
         font-weight: 700; /* Bold */
-        margin-bottom: 48px;
-        margin-top: -10px;
-        color: #ffffff; /* Updated White */
+        margin-bottom: 80px;
+        margin-top: 0;
+        color: #fcfff7; /* Updated White */
         text-align: center;
       }
 
@@ -85,14 +75,13 @@
       .input-group {
         display: flex;
         flex-direction: column;
-        position: relative;
+        position: relative; /* Needed for absolute positioning of icon */
       }
 
       label {
-        font-size: 13px;
-        color: #a0a2a4; /* Grey derived from new white */
+        font-size: 14px;
+        color: #ffffffb7; /* Grey derived from new white */
         margin-bottom: 8px;
-        font-weight: 500;
       }
 
       input[type="text"],
@@ -100,15 +89,16 @@
       input[type="tel"],
       input[type="password"],
       input[type="date"] {
-        background-color: #2c2f31; /* Darker grey input */
+        background-color: #282828; /* Darker grey input */
         border: none;
         border-radius: 12px;
-        padding: 14px 14px;
-        font-size: 16px;
-        color: #ffffff; /* Input text color */
+        padding: 17px 14px;
+        font-size: 18px;
+        color: #b8b8b88a; /* Input text color */
         outline: none;
         width: 100%;
-        color-scheme: dark;
+        color-scheme: dark; /* Helps with date picker styling */
+        height: 54px; /* Explicit height for consistent alignment */
       }
 
       input[type="date"] {
@@ -117,19 +107,19 @@
       }
 
       input[type="date"]::-webkit-calendar-picker-indicator {
-        filter: invert(0.05);
+        filter: invert(0.8); /* Make calendar icon lighter on dark bg */
         cursor: pointer;
         position: absolute;
-        right: 10px;
+        right: 14px;
         top: 50%;
         transform: translateY(-50%);
       }
 
       input[type="password"] {
-        padding-right: 45px; /* Space for the custom toggle */
+        padding-right: 50px; /* Space for the custom toggle */
       }
 
-      /* Hide browser's default password reveal icon (for Edge/IE) */
+      /* Hide browser's default password reveal icon */
       input[type="password"]::-ms-reveal {
         display: none;
         width: 0;
@@ -137,54 +127,59 @@
       }
 
       input::placeholder {
-        color: #77797b; /* Grey derived for placeholder */
+        color: #7a7c76; /* Grey derived for placeholder */
       }
 
-      /* Custom Password Toggle Button - Kept this */
+     /* --- MODIFIED: Custom Password Toggle Button using Image (Centered) --- */
       .password-toggle {
         position: absolute;
-        right: 12px;
-        /* Adjusted top slightly to better align with input padding */
-        top: calc(
-          50% + 12px
-        ); /* Center vertically relative to input text area */
-        transform: translateY(-50%);
+        right: 15px;        /* Horizontal position from right edge */
+        /* Remove top and transform properties */
+        bottom: 15px;       /* Position bottom edge 15px from the input-group bottom */
+                            /* Calculation: (Input Height 54px - Icon Height 24px) / 2 = 15px */
         cursor: pointer;
-        color: #a0a29dc2;
         background: none;
         border: none;
         padding: 0;
+        width: 24px;        /* Set width for the container */
+        height: 24px;       /* Set height for the container */
+        display: flex;      /* Center image inside button */
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
       }
 
-      .password-toggle svg {
-        width: 20px;
-        height: 20px;
-        display: block;
+      .password-toggle img {
+        display: block;     /* Remove extra space */
+        max-width: 100%;    /* Fit image within button bounds */
+        max-height: 100%;
       }
+      /* --- End Image Toggle Styles --- */
+
 
       /* Create Account Button */
       .create-account-button {
         background-color: #01b581; /* Updated Green */
-        color: #151515; /* Dark text */
+        color: #121212; /* Dark text */
         border: none;
-        border-radius: 50px;
+        border-radius: 30px;
         padding: 17px;
-        font-size: 16px;
-        /* Changed font-weight to extra bold (800) */
-        font-weight: 700;
+        font-size: 17px;
+        font-weight: 800; /* Extra bold */
         cursor: pointer;
         text-align: center;
         width: 100%;
-        transition: background-color 0.2s ease, opacity 0.2s ease;
+        transition: background-color 0.2s ease;
+        text-decoration: none; /* Remove underline if using as link */
       }
 
       .create-account-button:hover {
-        opacity: 0.9;
+        background-color: #01d496; /* Lighter shade of Green */
       }
 
       /* Already Have Account Link */
       .login-link {
-        color: #427db8;
+        color: #a0a29d;
         text-decoration: none;
         font-size: 14px;
         text-align: center;
@@ -193,16 +188,15 @@
       }
       .header {
         padding: 40px 20px 15px 20px;
-      } /* Adjusted padding */
+      }
       .login-link:hover {
-        color: #000000; /* Slightly bluish white for hover */
+        color: #c0c2bd; /* Lighter grey for hover */
       }
     </style>
   </head>
   <body>
     <div class="header">
       <a href="signin1.html" class="back-button">
-        <!-- Consider linking this back appropriately -->
         <img src="green/arrow-green.png" alt="Back" />
       </a>
     </div>
@@ -229,23 +223,14 @@
         <div class="input-group">
           <label for="password">Password</label>
           <input type="password" id="password" name="password" required />
-          <!-- This is the custom toggle button - it remains -->
+          <!-- Button container with the image inside -->
           <button
             type="button"
             class="password-toggle"
             id="password-toggle"
-            aria-label="Toggle password visibility"
+            aria-label="Show password" <!-- Initial Aria Label -->
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <!-- Eye Icon SVG -->
-              <path
-                d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
-              />
-            </svg>
+              <img src="normal/eye-close.png" alt="Show password" id="toggleIcon"> <!-- Initial Icon -->
           </button>
         </div>
 
@@ -255,11 +240,12 @@
         </div>
       </form>
 
+      <!-- Changed button href to onclick for navigation -->
       <button
-        href="signin2.html"
         type="submit"
         form="signup-form"
         class="create-account-button"
+        onclick="window.location.href='signin2.html';"
       >
         Create an account
       </button>
@@ -268,27 +254,67 @@
     </div>
 
     <script>
+      // --- Password toggle script for images ---
       const passwordInput = document.getElementById("password");
       const passwordToggle = document.getElementById("password-toggle");
+      const toggleIcon = document.getElementById('toggleIcon'); // Get the image element
 
-      passwordToggle.addEventListener("click", () => {
-        const type =
-          passwordInput.getAttribute("type") === "password"
-            ? "text"
-            : "password";
-        passwordInput.setAttribute("type", type);
-        passwordToggle.setAttribute(
-          "aria-label",
-          type === "password" ? "Show password" : "Hide password"
-        );
-      });
+      // Define the image paths (Make sure these paths are correct!)
+      const eyeIconHiddenPath = 'normal/eye-close.png';         // Path when password is HIDDEN
+      const eyeIconVisiblePath = 'normal/eye.png';  // Path when password is VISIBLE
 
+      if (passwordInput && passwordToggle && toggleIcon) { // Check all elements exist
+          passwordToggle.addEventListener("click", () => {
+              const type =
+                  passwordInput.getAttribute("type") === "password"
+                      ? "text"
+                      : "password";
+              passwordInput.setAttribute("type", type);
+
+              // Update image src, alt text, and button aria-label
+              if (type === 'text') { // Password is now visible
+                  toggleIcon.src = eyeIconVisiblePath;
+                  toggleIcon.alt = 'Hide password';
+                  passwordToggle.setAttribute("aria-label", "Hide password");
+              } else { // Password is now hidden
+                  toggleIcon.src = eyeIconHiddenPath;
+                  toggleIcon.alt = 'Show password';
+                  passwordToggle.setAttribute("aria-label", "Show password");
+              }
+          });
+      }
+
+      // --- Form submission logic ---
       const form = document.getElementById("signup-form");
-      form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        console.log("Form submitted (prevented default)");
-        alert("Account creation submitted (demo)!");
-      });
+      if (form) {
+          form.addEventListener("submit", (event) => {
+              event.preventDefault(); // Prevent default page reload
+              console.log("Form submitted (prevented default)");
+              // alert("Account creation submitted (demo)!"); // Optional alert
+
+              // Instead of submitting, we navigate using the button's onclick
+              // You might want to add form validation *before* navigating
+              // Example (very basic):
+              // if (passwordInput.value.length >= 8) {
+              //   window.location.href='signin2.html';
+              // } else {
+              //   alert('Password must be at least 8 characters long.');
+              // }
+              // For this example, we'll let the button's onclick handle navigation
+              // after this event listener completes.
+          });
+      }
+
+      // Ensure create button navigation works even without form submission event
+      // (The onclick attribute handles this, but this is good practice)
+      const createButton = document.querySelector('.create-account-button');
+      if (createButton && !createButton.hasAttribute('onclick')) { // If onclick wasn't added
+          createButton.addEventListener('click', function() {
+              // Add validation here if needed before navigating
+              window.location.href = 'signin2.html';
+          });
+      }
+
     </script>
   </body>
 </html>
