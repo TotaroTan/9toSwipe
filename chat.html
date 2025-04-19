@@ -3,56 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Chat</title>
+  <title>Responsive Chat UI</n></title>
   <style>
+    :root {
+      --header-height: 56px;
+      --filter-height: 40px;
+    }
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
     }
-    body {
-      background-color: #151515;
-      color: white;
+    html, body {
       height: 100vh;
+      width: 100%;
       overflow: hidden;
+      background-color: #151515;
+      color: #fff;
     }
     .chat-container {
-      max-width: 430px;
-      margin: auto;
-      height: 100vh;
       display: flex;
       flex-direction: column;
+      height: 100%;
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
       background-color: #000;
     }
+    @media (min-width: 768px) {
+      .chat-container {
+        max-width: 600px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .chat-container {
+        max-width: 800px;
+      }
+    }
     .header {
+      flex: 0 0 var(--header-height);
       background-color: #00d084;
-      padding: 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
+      padding: 0 16px;
+    }
+    .header img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
     }
     .header h2 {
       font-size: 20px;
-      color: black;
-      margin: 0 auto;
+      color: #000;
     }
-    /* Added filter bar under the header */
     .filter-bar {
+      flex: 0 0 var(--filter-height);
       background-color: #00d084;
-      padding: 8px 16px;
       display: flex;
       align-items: center;
+      padding: 0 16px;
     }
     .filter-dropdown {
       position: relative;
-      display: inline-block;
     }
     .filter-btn {
       background: none;
       border: none;
-      color: black;
+      color: #000;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
@@ -60,13 +79,15 @@
     .filter-dropdown-content {
       display: none;
       position: absolute;
+      top: 100%;
+      left: 0;
       background-color: #1e1e1e;
       min-width: 120px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 1;
+      z-index: 10;
     }
     .filter-dropdown-content a {
-      color: white;
+      color: #fff;
       padding: 8px 12px;
       text-decoration: none;
       display: block;
@@ -113,10 +134,11 @@
       font-size: 12px;
       color: #aaa;
       margin-left: 8px;
+      flex-shrink: 0;
     }
     .chat-item.user-a .chat-details .name,
     .chat-item.user-a .chat-details .message {
-      color: white;
+      color: #fff;
       font-weight: 900;
     }
   </style>
@@ -124,14 +146,10 @@
 <body>
   <div class="chat-container">
     <div class="header">
-      <!-- Replace the text arrow with back.png image -->
-      <span style="font-size: 24px; cursor: pointer">
-        <img src="black/arrow.svg" alt="Back" style="height:24px; width:24px;" />
-      </span>
+      <img src="black/arrow.svg" alt="Back" />
       <h2>Chat</h2>
-      <span style="color: transparent">←</span> <!-- spacing trick -->
+      <span style="width:24px"></span>
     </div>
-    <!-- New filter bar with dropdown under the header -->
     <div class="filter-bar">
       <div class="filter-dropdown">
         <button class="filter-btn">All</button>
