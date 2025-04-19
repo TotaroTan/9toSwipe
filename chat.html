@@ -3,161 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Responsive Chat UI</n></title>
+  <title>Responsive Chat UI</title>
   <style>
-    :root {
-      --header-height: 56px;
-      --filter-height: 40px;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-    }
-    html, body {
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
-      background-color: #151515;
-      color: #fff;
-    }
-    .chat-container {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      width: 100%;
-      max-width: 430px;
-      margin: 0 auto;
-      background-color: #000;
-    }
-    @media (min-width: 768px) {
-      .chat-container {
-        max-width: 600px;
-      }
-    }
-    @media (min-width: 1024px) {
-      .chat-container {
-        max-width: 800px;
-      }
-    }
-    .header {
-      flex: 0 0 var(--header-height);
-      background-color: #00d084;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-    }
-    .header img {
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-    }
-    .header h2 {
-      font-size: 20px;
-      color: #000;
-    }
-    .filter-bar {
-      flex: 0 0 var(--filter-height);
-      background-color: #00d084;
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-    }
-    .filter-dropdown {
-      position: relative;
-    }
-    .filter-btn {
-      background: none;
-      border: none;
-      color: #000;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .filter-dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #1e1e1e;
-      min-width: 120px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 10;
-    }
-    .filter-dropdown-content a {
-      color: #fff;
-      padding: 8px 12px;
-      text-decoration: none;
-      display: block;
-      font-size: 14px;
-      border-bottom: 1px solid #2c2c2c;
-    }
-    .filter-dropdown-content a:hover {
-      background-color: #2c2c2c;
-    }
-    .filter-dropdown:hover .filter-dropdown-content {
-      display: block;
-    }
-    .chat-list {
-      flex: 1;
-      overflow-y: auto;
-      background-color: #1e1e1e;
-    }
-    .chat-item {
-      display: flex;
-      align-items: center;
-      padding: 14px 16px;
-      border-bottom: 1px solid #2c2c2c;
-    }
-    .chat-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      margin-right: 14px;
-      flex-shrink: 0;
-    }
-    .chat-details {
-      flex: 1;
-    }
-    .chat-details .name {
-      font-weight: bold;
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-    .chat-details .message {
-      font-size: 14px;
-      color: #cfcfcf;
-    }
-    .chat-date {
-      font-size: 12px;
-      color: #aaa;
-      margin-left: 8px;
-      flex-shrink: 0;
-    }
+    :root { --header-height: 56px; --filter-height: 40px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    html, body { height: 100vh; width: 100%; overflow: hidden; background-color: #151515; color: #fff; }
+    .chat-container { display: flex; flex-direction: column; height: 100%; width: 100%; max-width: 430px; margin: 0 auto; background-color: #000; }
+    @media (min-width: 768px) { .chat-container { max-width: 600px; } }
+    @media (min-width: 1024px) { .chat-container { max-width: 800px; } }
+    .header { flex: 0 0 var(--header-height); background-color: #00d084; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+    .header img { width: 24px; height: 24px; cursor: pointer; }
+    .header h2 { font-size: 20px; color: #000; }
+    .filter-bar { flex: 0 0 var(--filter-height); background-color: #00d084; display: flex; align-items: center; padding: 0 16px; }
+    .filter-dropdown { position: relative; }
+    .filter-btn { background: none; border: none; color: #000; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; }
+    .filter-btn .filter-arrow { margin-left: 6px; width: 12px; height: 12px; }
+    .filter-dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: #1e1e1e; min-width: 140px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 10; }
+    .filter-dropdown.open .filter-dropdown-content { display: block; }
+    .filter-dropdown-content a { color: #fff; padding: 8px 12px; text-decoration: none; display: block; font-size: 14px; border-bottom: 1px solid #2c2c2c; }
+    .filter-dropdown-content a:hover { background-color: #2c2c2c; }
+    .chat-list { flex: 1; overflow-y: auto; background-color: #1e1e1e; }
+    .chat-item { display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid #2c2c2c; cursor: pointer; }
+    .chat-item.user-a { cursor: pointer; }
+    .chat-avatar { width: 48px; height: 48px; border-radius: 50%; margin-right: 14px; flex-shrink: 0; }
+    .chat-details { flex: 1; }
+    .chat-details .name { font-weight: bold; font-size: 15px; margin-bottom: 4px; }
+    .chat-details .message { font-size: 14px; color: #cfcfcf; }
+    .chat-date { font-size: 12px; color: #aaa; margin-left: 8px; flex-shrink: 0; }
     .chat-item.user-a .chat-details .name,
-    .chat-item.user-a .chat-details .message {
-      color: #fff;
-      font-weight: 900;
-    }
+    .chat-item.user-a .chat-details .message { color: #fff; font-weight: 900; }
   </style>
 </head>
 <body>
   <div class="chat-container">
     <div class="header">
-      <img src="black/arrow.svg" alt="Back" />
+      <img src="black/arrow.svg" alt="Back" onclick="window.location.href='home.html'" />
       <h2>Chat</h2>
       <span style="width:24px"></span>
     </div>
     <div class="filter-bar">
       <div class="filter-dropdown">
-        <button class="filter-btn">All</button>
+        <button class="filter-btn">All <img src="black/down-arrow.svg" alt="Toggle" class="filter-arrow"/></button>
         <div class="filter-dropdown-content">
-          <a href="#">All</a>
-          <a href="#">Recent</a>
-          <a href="#">Oldest</a>
-          <a href="#">Unread</a>
+          <a href="#" data-filter="all">All</a>
+          <a href="#" data-filter="recent">Recent</a>
+          <a href="#" data-filter="oldest">Oldest</a>
+          <a href="#" data-filter="unread">Unread</a>
         </div>
       </div>
     </div>
@@ -166,67 +57,55 @@
         <div class="chat-avatar" style="background-color: #9d2323"></div>
         <div class="chat-details">
           <div class="name">User A</div>
-          <div class="message"><strong>HI, how are you today?</strong></div>
+          <div class="message"><strong>Welcome to Adobe Careers! I'm Linh, here to guide you through roles, culture, and process. How may I help today?</strong></div>
         </div>
         <div class="chat-date">Monday</div>
       </div>
-      <div class="chat-item">
-        <div class="chat-avatar" style="background-color: #2b2baa"></div>
-        <div class="chat-details">
-          <div class="name">User B</div>
-          <div class="message">We'll see you tomorrow</div>
-        </div>
-        <div class="chat-date">19/03</div>
-      </div>
-      <div class="chat-item">
-        <div class="chat-avatar" style="background-color: #7e3a75"></div>
-        <div class="chat-details">
-          <div class="name">User C</div>
-          <div class="message"><strong>Comeback next time?</strong></div>
-        </div>
-        <div class="chat-date">05/03</div>
-      </div>
-      <div class="chat-item">
-        <div class="chat-avatar" style="background-color: #4caf50"></div>
-        <div class="chat-details">
-          <div class="name">User D</div>
-          <div class="message">Thank you ❤️</div>
-        </div>
-        <div class="chat-date">28/02</div>
-      </div>
-      <div class="chat-item">
-        <div class="chat-avatar" style="background-color: #b59e2e"></div>
-        <div class="chat-details">
-          <div class="name">User E</div>
-          <div class="message">No thanks</div>
-        </div>
-        <div class="chat-date">15/02</div>
-      </div>
-      <div class="chat-item">
-        <div class="chat-avatar" style="background-color: #10696d"></div>
-        <div class="chat-details">
-          <div class="name">User F</div>
-          <div class="message">Payout in next week 😌</div>
-        </div>
-        <div class="chat-date">10/01</div>
-      </div>
-      <div class="chat-item">
-        <div class="chat-avatar" style="background-color: #6e1a7e"></div>
-        <div class="chat-details">
-          <div class="name">User G</div>
-          <div class="message">I am coming right now 🔥.</div>
-        </div>
-        <div class="chat-date">30/12/24</div>
-      </div>
-      <div class="chat-item">
-        <div class="chat-avatar" style="background-color: #1e696d"></div>
-        <div class="chat-details">
-          <div class="name">User H</div>
-          <div class="message">Give me a 5* rating, or else!!!</div>
-        </div>
-        <div class="chat-date">27/12/24</div>
-      </div>
+      <div class="chat-item"><div class="chat-avatar" style="background-color: #2b2baa"></div><div class="chat-details"><div class="name">User B</div><div class="message">We'll see you tomorrow</div></div><div class="chat-date">19/03</div></div>
+      <div class="chat-item"><div class="chat-avatar" style="background-color: #7e3a75"></div><div class="chat-details"><div class="name">User C</div><div class="message"><strong>Comeback next time?</strong></div></div><div class="chat-date">05/03</div></div>
+      <div class="chat-item"><div class="chat-avatar" style="background-color: #4caf50"></div><div class="chat-details"><div class="name">User D</div><div class="message">Thank you ❤️</div></div><div class="chat-date">28/02</div></div>
+      <div class="chat-item"><div class="chat-avatar" style="background-color: #b59e2e"></div><div class="chat-details"><div class="name">User E</div><div class="message">No thanks</div></div><div class="chat-date">15/02</div></div>
+      <div class="chat-item"><div class="chat-avatar" style="background-color: #10696d"></div><div class="chat-details"><div class="name">User F</div><div class="message">Payout in next week 😌</div></div><div class="chat-date">10/01</div></div>
+      <div class="chat-item"><div class="chat-avatar" style="background-color: #6e1a7e"></div><div class="chat-details"><div class="name">User G</div><div class="message">I am coming right now 🔥.</div></div><div class="chat-date">30/12/24</div></div>
+      <div class="chat-item"><div class="chat-avatar" style="background-color: #1e696d"></div><div class="chat-details"><div class="name">User H</div><div class="message">Give me a 5* rating, or else!!!</div></div><div class="chat-date">27/12/24</div></div>
     </div>
   </div>
+  <script>
+    const dropdown = document.querySelector('.filter-dropdown');
+    const btn = dropdown.querySelector('.filter-btn');
+    const links = dropdown.querySelectorAll('.filter-dropdown-content a');
+
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    });
+    links.forEach(link => link.addEventListener('click', e => {
+      e.preventDefault();
+      const filter = link.dataset.filter;
+      btn.firstChild.textContent = link.textContent + ' ';
+      applyFilter(filter);
+      dropdown.classList.remove('open');
+    }));
+    document.addEventListener('click', () => dropdown.classList.remove('open'));
+
+    function applyFilter(filter) {
+      const list = document.querySelector('.chat-list');
+      const items = Array.from(list.children);
+      items.forEach(item => item.style.display = 'flex');
+      if (filter === 'all' || filter === 'recent') {
+        items.sort((a, b) => a.querySelector('.name').textContent.localeCompare(b.querySelector('.name').textContent));
+      } else if (filter === 'oldest') {
+        items.sort((a, b) => b.querySelector('.name').textContent.localeCompare(a.querySelector('.name').textContent));
+      } else if (filter === 'unread') {
+        items.forEach(item => { if (!item.classList.contains('user-a')) item.style.display = 'none'; });
+        return;
+      }
+      items.forEach(item => list.appendChild(item));
+    }
+
+    document.querySelector('.chat-item.user-a').addEventListener('click', () => {
+      window.location.href = 'chat-a.html';
+    });
+  </script>
 </body>
 </html>
