@@ -84,7 +84,7 @@
     <div class="chat-box">
       <div class="header">
         <!-- Ensure path 'black/arrow-black.svg' is correct -->
-        <img src="black/arrow-black.svg" class="back" alt="Back" onclick="alert('Implement back navigation');"/>
+        <img src="black/arrow-black.svg" class="back" alt="Back" onclick="window.location.href='chat.html';"/>
         <div class="title">User A</div>
         <div style="width:24px"></div>
       </div>
@@ -126,7 +126,7 @@
     const stopBtn = document.getElementById('stopBtn');
     const ctx = canvas.getContext('2d');
     const micIconSrc = 'white/mic-white.svg';
-    const sendIconSrc = 'normal/eye.png';
+    const sendIconSrc = 'green/send-green.png';
 
     function autoGrow(element){
         const maxHeight = 120;
