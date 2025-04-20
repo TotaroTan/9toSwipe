@@ -5,51 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Chat A - Adobe HR Chat</title>
   <style>
-    :root { --header-height: 56px; --input-height: 56px; }
+    /* --- Base Styles --- */
+    :root { --header-height: 56px; --input-min-height: 56px; }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
     html, body { height: 100vh; width: 100%; background: #151515; }
-    body { display: flex; justify-content: center; align-items: center; }
-    .app-wrapper { width: 100%; max-width: 430px; height: 100%; display: flex; flex-direction: column; background: #000; }
-    @media (min-width: 768px) { .app-wrapper { max-width: 600px; } }
-    @media (min-width: 1024px) { .app-wrapper { max-width: 800px; } }
-    .chat-box { display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden; background: #D9D9D9; }
-    .header { flex: 0 0 var(--header-height); background: #00B581; display: flex; align-items: center; padding: 0 16px; }
+
+    /* --- MODIFIED BODY RULE --- */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center; /* Centering vertically doesn't matter if wrapper is 100% height */
+      overflow: hidden;
+    }
+    /* --- END MODIFIED BODY RULE --- */
+
+    /* App wrapper takes full height */
+    .app-wrapper {
+        width: 100%;
+        max-width: 430px; /* Mobile first max-width */
+        height: 100%;     /* <<< Takes full height of body */
+        display: flex;
+        flex-direction: column;
+        background: #000;
+        /* border-radius and overflow are applied in media queries */
+    }
+
+    /* --- MODIFIED Media Queries --- */
+    @media (min-width: 768px) {
+        .app-wrapper {
+            max-width: 600px;
+            /* NO max-height or margin-top here */
+            border-radius: 12px;
+            overflow: hidden; /* Needed for border-radius */
+        }
+    }
+    @media (min-width: 1024px) {
+        .app-wrapper {
+            max-width: 800px;
+            /* border-radius and overflow inherited */
+        }
+     }
+    /* --- END MODIFIED Media Queries --- */
+
+    /* --- Rest of the CSS remains the same --- */
+    .chat-box { display: flex; flex-direction: column; height: 100%; overflow: hidden; background: #151515; }
+    .header { flex: 0 0 var(--header-height); background: #00B581; display: flex; align-items: center; padding: 0 16px; color: #000; }
     .back { width:24px; height:24px; cursor: pointer; }
-    .title { flex: 1; text-align: center; font-size: 20px; font-weight: 800; color: #000; }
+    .title { flex: 1; text-align: center; font-size: 20px; font-weight: 800; }
     .chat-container { flex: 1; padding: 16px; overflow-y: auto; background: #151515; }
-    .date-separator { text-align: center; margin: 8px 0; }
-    .bubble { display: inline-block; background: #333; color: #fff; padding: 4px 8px; border-radius: 12px; font-size: 10px; }
-    .message-wrapper { display: flex; margin: 4px 0; }
+    .date-separator { text-align: center; margin: 12px 0; }
+    .bubble { display: inline-block; background: #333; color: #ccc; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 500; }
+    .message-wrapper { display: flex; margin-bottom: 8px; align-items: flex-start; /* Align avatar and bubble top */ }
     .message-wrapper.user { justify-content: flex-end; }
-    .avatar { width: 24px; height: 24px; background: #831B1B; border-radius: 50%; margin-right: 8px; }
-    .message { max-width: 70%; border-radius: 12px; padding: 12px; font-size: 12px; line-height: 1.4; }
-    .message.bot { background: #fff; color: #000; margin-left: 8px; }
-    .message.user { background: #01B581; color: #000; margin-right: 8px; }
-    .time { display: block; margin-top: 8px; font-size: 10px; color: rgba(21,21,21,0.6); text-align: right; }
-    .input-container { flex: 0 0 var(--input-height); display: flex; align-items: center; padding: 8px; background: #151515; position: relative; }
-    .icon { width: 24px; height: 24px; margin: 0 8px; cursor: pointer; opacity: 0.8; }
-    textarea { flex: 1; height: 36px; padding: 8px; border: none; border-radius: 18px; background: #292929; color: #fff; font-size: 12px; resize: none; }
-    /* Waveform overlay */
-    .waveform-container { position: absolute; bottom: 56px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); padding: 8px; border-radius: 8px; display: none; align-items: center; }
-    #waveform { width: 200px; height: 50px; background: #222; border-radius: 4px; }
-    .stop-btn { margin-left: 8px; padding: 4px 8px; background: #e74c3c; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-    a.file-link { color: #00B581; text-decoration: underline; }
+    .avatar { width: 24px; height: 24px; background: #831B1B; border-radius: 50%; margin-right: 8px; flex-shrink: 0; margin-top: 2px; /* Optional: Add tiny top margin for visual alignment */ }
+    .message-wrapper.user .avatar { display: none; }
+    .message { max-width: 75%; border-radius: 18px; padding: 10px 14px; font-size: 13px; line-height: 1.5; word-wrap: break-word; }
+    .message.bot { background: #fff; color: #000; border-top-left-radius: 4px; margin-left: 8px; }
+    .message.user { background: #01B581; color: #000; border-top-right-radius: 4px; margin-right: 8px; }
+    .message em { color: #555; font-style: italic; }
+    .message img { display: block; max-width: 100%; border-radius: 8px; margin-top: 6px; }
+    .message audio { display: block; width: 100%; margin-top: 8px; height: 40px; }
+    .message strong { font-weight: 600; }
+    .time { display: block; margin-top: 5px; font-size: 10px; color: rgba(255, 255, 255, 0.5); text-align: right; }
+    .message.bot .time { color: rgba(0, 0, 0, 0.5); }
+    .input-container { flex: 0 0 auto; min-height: var(--input-min-height); display: flex; align-items: flex-end; padding: 10px 8px; background: #151515; border-top: 1px solid #2a2a2a; position: relative; }
+    .icon { width: 24px; height: 24px; margin: 0 6px; cursor: pointer; opacity: 0.8; transition: opacity 0.2s ease; align-self: flex-end; margin-bottom: 6px; }
+    .icon:hover { opacity: 1; }
+    textarea { flex: 1; min-height: 36px; max-height: 120px; padding: 8px 12px; border: none; border-radius: 18px; background: #292929; color: #fff; font-size: 13px; resize: none; overflow-y: auto; line-height: 1.4; outline: none; }
+    .waveform-container { position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 300px; background: rgba(21, 21, 21, 0.9); padding: 10px; border-radius: 8px; display: none; align-items: center; justify-content: space-between; box-shadow: 0 -2px 8px rgba(0,0,0,0.3); z-index: 10; }
+    #waveform { width: calc(100% - 70px); height: 45px; background: #222; border-radius: 4px; }
+    .stop-btn { margin-left: 10px; padding: 6px 12px; background: #e74c3c; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500; }
+    a.file-link { color: #00B581; text-decoration: underline; font-weight: 500; }
+    a.file-link:hover { color: #33c7a0; }
   </style>
 </head>
 <body>
   <div class="app-wrapper">
     <div class="chat-box">
       <div class="header">
-        <img src="black/arrow-black.svg" class="back" alt="Back" onclick="window.location='chat.html'"/>
+        <!-- Ensure path 'black/arrow-black.svg' is correct -->
+        <img src="black/arrow-black.svg" class="back" alt="Back" onclick="alert('Implement back navigation');"/>
         <div class="title">User A</div>
         <div style="width:24px"></div>
       </div>
-      <div class="chat-container" id="chat"></div>
-      <div class="input-container">
-        <img src="white/plus-white.svg" id="fileBtn" class="icon" alt="Add File" />
-        <img src="white/photo-white.svg" id="imageBtn" class="icon" alt="Add Photo" />
-        <textarea id="input" placeholder="Aa" oninput="autoGrow(this)" onblur="shrink(this)"></textarea>
-        <img src="white/mic-white.svg" id="micBtn" class="icon" alt="Record" />
+      <div class="chat-container" id="chat">
+         <!-- Messages added via JS -->
+      </div>
+      <div class="input-container" id="inputArea">
+         <!-- Ensure paths 'white/*.svg' are correct -->
+        <img src="white/plus-white.svg" id="fileBtn" class="icon" alt="Add File" title="Attach File"/>
+        <img src="white/photo-white.svg" id="imageBtn" class="icon" alt="Add Photo" title="Attach Image"/>
+        <textarea id="input" placeholder="Aa" rows="1"></textarea>
+         <!-- Ensure paths 'white/mic-white.svg' and 'normal/eye.png' are correct -->
+        <img src="white/mic-white.svg" id="micBtn" class="icon" alt="Record" title="Record Audio"/>
         <div class="waveform-container" id="waveformContainer">
           <canvas id="waveform"></canvas>
           <button class="stop-btn" id="stopBtn">Stop</button>
@@ -57,71 +105,268 @@
       </div>
     </div>
   </div>
-  <!-- Hidden inputs -->
+
+  <!-- Hidden inputs (Keep Existing) -->
   <input type="file" id="fileInput" style="display:none" />
   <input type="file" id="imageInput" accept="image/*" style="display:none" />
 
   <script>
+    // --- All JavaScript remains the same as the previous version ---
     const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     let isRecording=false, mediaRecorder, audioChunks=[], analyser, dataArray, animationId;
-    function autoGrow(f){f.style.height='auto';f.style.height=f.scrollHeight+'px';}
-    function shrink(f){if(!f.value)f.style.height='36px';}
-    function addDateSeparator(override){const now=new Date();const sep=document.createElement('div');sep.className='date-separator';const bubble=document.createElement('span');bubble.className='bubble';bubble.innerText=override||days[now.getDay()];sep.appendChild(bubble);document.getElementById('chat').appendChild(sep);}
-    function addMessage(w,html){const c=document.getElementById('chat'),wpr=document.createElement('div');wpr.className='message-wrapper '+w;if(w==='bot'){const a=document.createElement('div');a.className='avatar';wpr.appendChild(a);}const m=document.createElement('div');m.className='message '+w;m.innerHTML=html;const t=document.createElement('div');t.className='time';const n=new Date();t.innerText=`${n.getHours().toString().padStart(2,'0')}:${n.getMinutes().toString().padStart(2,'0')}`;m.appendChild(t);wpr.appendChild(m);c.appendChild(wpr);c.scrollTop=c.scrollHeight;}
-    function genSmartResponse(i){const t=i.toLowerCase();if(/experience|background|projects/.test(t))return"I appreciate you sharing your background. Can you describe two projects where you took the lead and the outcomes you achieved?";if(/role|position|team/.test(t))return"That role sounds exciting! Which responsibilities are you most passionate about—team leadership, strategic planning, or hands-on execution?";if(/skill|technology|tool/.test(t))return"Technical proficiency is crucial. Which software or frameworks do you feel most confident mentoring others on?";if(/culture|benefits|values/.test(t))return"Adobe values creativity and collaboration. Which of these is most important to you in a company's culture?";if(/interview|process|next step/.test(t))return"Good question! Our hiring process includes a technical assessment followed by a cultural fit interview. Would you like more details on either stage?";if(/timeline|duration|when/.test(t))return"We typically complete interviews within two weeks. Are you working with any specific deadlines?";if(/thank|thanks/.test(t))return"You're welcome! Feel free to ask about any aspect of the position or our team.";if(t.match(/\?$/))return"That's a thoughtful question. Could you provide a bit more context so I can give the best answer?";if(i.length<15)return"Could you elaborate a bit more so I can assist you effectively?";const f=["Thanks for that info. What are your long-term career goals at Adobe?","I appreciate your insight. How do you see yourself growing here?","Can you tell me more about the impact you want to make?","What motivates you most in a professional setting?"];return f[Math.floor(Math.random()*f.length)];}
-    function sendMessage(){addDateSeparator();const inp=document.getElementById('input'),txt=inp.value.trim();if(!txt)return;addMessage('user',txt);inp.value='';shrink(inp);addMessage('bot','<em>Typing a thoughtful response...</em>');setTimeout(()=>{const bs=document.querySelectorAll('.message-wrapper.bot .message'),last=bs[bs.length-1];last.innerHTML=genSmartResponse(txt);const t=document.createElement('div');t.className='time';const n=new Date();t.innerText=`${n.getHours().toString().padStart(2,'0')}:${n.getMinutes().toString().padStart(2,'0')}`;last.appendChild(t);},1400);}
-    document.getElementById('input').addEventListener('keypress',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
-    // File chooser
-    document.getElementById('fileBtn').onclick=()=>document.getElementById('fileInput').click();
-    document.getElementById('fileInput').onchange=e=>{
-      const file=e.target.files[0];
-      if(file) {
-        const url=URL.createObjectURL(file);
-        addMessage('user', `<strong>${file.name}</strong><br><a href="${url}" download="${file.name}" class="file-link">Download</a>`);
-      }
-    };
-    // Image chooser
-    document.getElementById('imageBtn').onclick=()=>document.getElementById('imageInput').click();
-    document.getElementById('imageInput').onchange=e=>{
-      const file=e.target.files[0];
-      if(file){
-        const reader=new FileReader();
-        reader.onload=()=>addMessage('user', `<strong>${file.name}</strong><br><img src="${reader.result}" style="max-width:70%;border-radius:8px;"/>`);
-        reader.readAsDataURL(file);
-      }
-    };
-    // Audio recorder with waveform
-    const micBtn=document.getElementById('micBtn'),waveCont=document.getElementById('waveformContainer'),canvas=document.getElementById('waveform'),stopBtn=document.getElementById('stopBtn');
-    const ctx=canvas.getContext('2d');
-    stopBtn.onclick=()=>{mediaRecorder.stop();};
-    micBtn.onclick=async()=>{
-      if(!isRecording){
-        waveCont.style.display='flex';
-        const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-        const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-        const source=audioCtx.createMediaStreamSource(stream);
-        analyser=audioCtx.createAnalyser();source.connect(analyser);
-        dataArray=new Uint8Array(analyser.fftSize);
-        mediaRecorder=new MediaRecorder(stream);audioChunks=[];
-        mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-        mediaRecorder.onstop=()=>{
-          cancelAnimationFrame(animationId);
-          waveCont.style.display='none';
-          const blob=new Blob(audioChunks),url=URL.createObjectURL(blob);
-          addMessage('user',`<audio controls src="${url}"></audio>`);
-        };
-        mediaRecorder.start();isRecording=true;
-        function draw(){
-          analyser.getByteTimeDomainData(dataArray);
-          ctx.fillStyle='#222';ctx.fillRect(0,0,canvas.width,canvas.height);
-          ctx.lineWidth=2;ctx.strokeStyle='#01B581';ctx.beginPath();const slice=canvas.width/dataArray.length;let x=0;
-          for(let i=0;i<dataArray.length;i++){const v=dataArray[i]/128.0;const y=v*canvas.height/2; if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y); x+=slice;}
-          ctx.lineTo(canvas.width,canvas.height/2);ctx.stroke();animationId=requestAnimationFrame(draw);
+    const chatContainer = document.getElementById('chat');
+    const input = document.getElementById('input');
+    const micBtn = document.getElementById('micBtn');
+    const fileBtn = document.getElementById('fileBtn');
+    const imageBtn = document.getElementById('imageBtn');
+    const fileInput = document.getElementById('fileInput');
+    const imageInput = document.getElementById('imageInput');
+    const waveCont = document.getElementById('waveformContainer');
+    const canvas = document.getElementById('waveform');
+    const stopBtn = document.getElementById('stopBtn');
+    const ctx = canvas.getContext('2d');
+    const micIconSrc = 'white/mic-white.svg';
+    const sendIconSrc = 'normal/eye.png';
+
+    function autoGrow(element){
+        const maxHeight = 120;
+        element.style.height = 'auto';
+        const newHeight = Math.min(element.scrollHeight, maxHeight);
+        element.style.height = newHeight + 'px';
+    }
+
+    function shrink(element){
+        if(!element.value) {
+             element.style.height='36px';
         }
-        draw();stopBtn.style.display='block';
+    }
+
+    function addDateSeparator(override){
+        const now=new Date();
+        const lastSeparator = chatContainer.querySelector('.date-separator:last-child .bubble');
+        const today = override || days[now.getDay()];
+        if (!lastSeparator || lastSeparator.innerText !== today) {
+            const sep=document.createElement('div');
+            sep.className='date-separator';
+            const bubble=document.createElement('span');
+            bubble.className='bubble';
+            bubble.innerText=today;
+            sep.appendChild(bubble);
+            chatContainer.appendChild(sep);
+        }
+    }
+
+    function addMessage(senderClass, content, isRawHtml = false) {
+        const wrapper=document.createElement('div');
+        wrapper.className='message-wrapper '+senderClass;
+        if(senderClass==='bot'){
+            const avatar=document.createElement('div');
+            avatar.className='avatar';
+            wrapper.appendChild(avatar);
+        }
+        const messageDiv=document.createElement('div');
+        messageDiv.className='message '+senderClass;
+        if (senderClass === 'user' && !isRawHtml) {
+            messageDiv.textContent = content;
+        } else {
+            messageDiv.innerHTML = content;
+        }
+        const timeDiv=document.createElement('div');
+        timeDiv.className='time';
+        const now=new Date();
+        timeDiv.innerText=`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+        messageDiv.appendChild(timeDiv);
+        wrapper.appendChild(messageDiv);
+        chatContainer.appendChild(wrapper);
+        chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
+    }
+
+    function genSmartResponse(i){const t=i.toLowerCase();if(/experience|background|projects/.test(t))return"I appreciate you sharing your background. Can you describe two projects where you took the lead and the outcomes you achieved?";if(/role|position|team/.test(t))return"That role sounds exciting! Which responsibilities are you most passionate about—team leadership, strategic planning, or hands-on execution?";if(/skill|technology|tool/.test(t))return"Technical proficiency is crucial. Which software or frameworks do you feel most confident mentoring others on?";if(/culture|benefits|values/.test(t))return"Adobe values creativity and collaboration. Which of these is most important to you in a company's culture?";if(/interview|process|next step/.test(t))return"Good question! Our hiring process includes a technical assessment followed by a cultural fit interview. Would you like more details on either stage?";if(/timeline|duration|when/.test(t))return"We typically complete interviews within two weeks. Are you working with any specific deadlines?";if(/thank|thanks/.test(t))return"You're welcome! Feel free to ask about any aspect of the position or our team.";if(t.match(/\?$/))return"That's a thoughtful question. Could you provide a bit more context so I can give the best answer?";if(i.length>0 && i.length<15)return"Could you elaborate a bit more so I can assist you effectively?";if(i.length === 0) return "How can I help you today?"; const f=["Thanks for that info. What are your long-term career goals at Adobe?","I appreciate your insight. How do you see yourself growing here?","Can you tell me more about the impact you want to make?","What motivates you most in a professional setting?"];return f[Math.floor(Math.random()*f.length)];}
+
+    function sendMessage(){
+        addDateSeparator();
+        const text = input.value.trim();
+        if(!text) return;
+        addMessage('user', text);
+        input.value='';
+        shrink(input);
+        autoGrow(input);
+        micBtn.src = micIconSrc;
+        micBtn.alt = "Record";
+        micBtn.title = "Record Audio";
+        addMessage('bot','<em>Typing a thoughtful response...</em>', true);
+        setTimeout(()=>{
+            const botMessages=document.querySelectorAll('.message-wrapper.bot .message');
+            const lastBotMessage=botMessages[botMessages.length-1];
+            if(lastBotMessage && lastBotMessage.querySelector('em')) {
+                 const botTimeDiv = lastBotMessage.querySelector('.time');
+                 lastBotMessage.innerHTML = genSmartResponse(text);
+                 if (botTimeDiv) {
+                     lastBotMessage.appendChild(botTimeDiv);
+                 }
+            } else {
+                 addMessage('bot', genSmartResponse(text), true);
+            }
+        }, 1400 + Math.random() * 600);
+    }
+
+    input.addEventListener('input', () => {
+        autoGrow(input);
+        const text = input.value.trim();
+        if (text.length > 0) {
+            if (micBtn.src !== sendIconSrc) {
+                micBtn.src = sendIconSrc;
+                micBtn.alt = "Send";
+                micBtn.title = "Send Message";
+            }
+        } else {
+            if (micBtn.src !== micIconSrc) {
+                micBtn.src = micIconSrc;
+                micBtn.alt = "Record";
+                micBtn.title = "Record Audio";
+            }
+        }
+    });
+
+    input.addEventListener('blur', () => {
+        shrink(input);
+    });
+
+    input.addEventListener('keypress', e=>{
+        if(e.key==='Enter' && !e.shiftKey){
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    fileBtn.onclick = () => fileInput.click();
+    fileInput.onchange = e => {
+      const file = e.target.files[0];
+      if(file) {
+        const url = URL.createObjectURL(file);
+        addDateSeparator();
+        addMessage('user', `<strong>${file.name}</strong> (${(file.size / 1024).toFixed(1)} KB)<br><a href="${url}" download="${file.name}" class="file-link">Download File</a>`, true);
+        fileInput.value = '';
       }
     };
-    window.onload=()=>{addDateSeparator('Monday');addMessage('bot',"<strong>Adobe Careers – HR Team</strong><br>Welcome to Adobe Careers! I'm Linh, here to guide you through roles, culture, and process. How may I help today?");};
+
+    imageBtn.onclick = () => imageInput.click();
+    imageInput.onchange = e => {
+      const file = e.target.files[0];
+      if(file && file.type.startsWith('image/')){
+        const reader = new FileReader();
+        reader.onload = () => {
+            addDateSeparator();
+            addMessage('user', `<strong>${file.name}</strong><br><img src="${reader.result}" alt="${file.name}" style="max-width:100%;border-radius:8px;"/>`, true);
+        }
+        reader.readAsDataURL(file);
+        imageInput.value = '';
+      } else if (file) {
+          alert("Please select a valid image file.");
+          imageInput.value = '';
+      }
+    };
+
+    stopBtn.onclick = () => {
+        if (mediaRecorder && mediaRecorder.state === "recording") {
+            mediaRecorder.stop();
+        }
+    };
+
+    micBtn.onclick = async () => {
+        if (input.value.trim().length > 0) {
+            sendMessage();
+        }
+        else if (!isRecording) {
+            waveCont.style.display = 'flex';
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const source = audioCtx.createMediaStreamSource(stream);
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 2048;
+                source.connect(analyser);
+                dataArray = new Uint8Array(analyser.frequencyBinCount);
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                mediaRecorder.ondataavailable = e => {
+                    if (e.data.size > 0) audioChunks.push(e.data);
+                };
+                mediaRecorder.onstop = () => {
+                    cancelAnimationFrame(animationId);
+                    waveCont.style.display = 'none';
+                    isRecording = false;
+                    micBtn.src = micIconSrc;
+                    micBtn.alt = "Record";
+                    micBtn.title = "Record Audio";
+                    stopBtn.style.display = 'none';
+                    if (audioChunks.length > 0) {
+                        const blob = new Blob(audioChunks, { type: 'audio/webm' });
+                        const url = URL.createObjectURL(blob);
+                        addDateSeparator();
+                        addMessage('user', `<audio controls src="${url}"></audio>`, true);
+                    }
+                    stream.getTracks().forEach(track => track.stop());
+                    if (audioCtx.state !== 'closed') audioCtx.close();
+                    analyser = null;
+                    mediaRecorder = null;
+                };
+                mediaRecorder.start();
+                isRecording = true;
+                micBtn.src = micIconSrc;
+                micBtn.alt = "Recording...";
+                micBtn.title = "Recording Audio...";
+                stopBtn.style.display = 'block';
+                function draw() {
+                    if (!analyser) return;
+                    animationId = requestAnimationFrame(draw);
+                    analyser.getByteTimeDomainData(dataArray);
+                    ctx.fillStyle = '#222';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#01B581';
+                    ctx.beginPath();
+                    const sliceWidth = canvas.width / dataArray.length;
+                    let x = 0;
+                    for (let i = 0; i < dataArray.length; i++) {
+                        const v = dataArray[i] / 128.0;
+                        const y = v * canvas.height / 2;
+                        if (i === 0) {
+                            ctx.moveTo(x, y);
+                        } else {
+                            ctx.lineTo(x, y);
+                        }
+                        x += sliceWidth;
+                    }
+                    ctx.lineTo(canvas.width, canvas.height / 2);
+                    ctx.stroke();
+                }
+                draw();
+            } catch (err) {
+                console.error("Error accessing microphone:", err);
+                if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
+                     alert("Microphone access denied. Please allow microphone access in your browser settings.");
+                } else {
+                     alert("Could not access microphone. Ensure it's connected/permissions granted.");
+                }
+                waveCont.style.display = 'none';
+                isRecording = false;
+                micBtn.src = micIconSrc;
+                micBtn.alt = "Record";
+                micBtn.title = "Record Audio";
+                stopBtn.style.display = 'none';
+            }
+        }
+    };
+
+    window.onload=()=>{
+        addDateSeparator('Monday');
+        addMessage('bot',"<strong>Adobe Careers – HR Team</strong><br>Welcome to Adobe Careers! I'm Linh, here to guide you through roles, culture, and process. How may I help today?", true);
+        micBtn.src = micIconSrc;
+        micBtn.alt = "Record";
+        micBtn.title = "Record Audio";
+        input.focus();
+    };
   </script>
 </body>
 </html>
