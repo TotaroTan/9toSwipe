@@ -374,7 +374,7 @@
           <img src="normal/search.png" alt="Search Jobs" />
         </a>
         <a href="Monetization.html" class="nav-item" title="Starred">
-          <img src="normal/star.png" alt="Starred" />
+          <img src="normal/apply.png" alt="Starred" />
         </a>
         <a href="favorite.html" class="nav-item" title="Liked">
           <img src="normal/heart.png" alt="Liked" />
@@ -933,7 +933,7 @@
           : "";
         const deadline = jobData.deadline || getRandomDate();
 
-        const cardStarIconHtml = `<img src="normal/star.png" alt="Favorite" class="card-star-icon" />`;
+        const cardStarIconHtml = `<img src="normal/apply.png" alt="Favorite" class="card-star-icon" />`;
 
         // === STRUCTURE CHANGE: Use only one toggle span ===
         card.innerHTML = `
@@ -976,13 +976,13 @@
           cardStarIcon.addEventListener("click", (e) => {
             e.stopPropagation();
             const isCurrentlyFavorited = cardStarIcon.src.includes(
-              "green/star-green.png"
+              "green/apply-green.png"
             );
             if (isCurrentlyFavorited) {
-              cardStarIcon.src = "normal/star.png";
+              cardStarIcon.src = "normal/apply.png";
               console.log(`Card ${index} Unfavorited`);
             } else {
-              cardStarIcon.src = "green/star-green.png";
+              cardStarIcon.src = "green/apply-green.png";
               console.log(`Card ${index} Favorited`);
             }
           });
