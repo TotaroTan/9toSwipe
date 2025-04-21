@@ -360,20 +360,20 @@
 
     <footer class="bottom-nav">
       <div class="nav-icons">
-         <!-- Links kept, but pages don't exist in this single file -->
+         <!-- Links updated as requested -->
         <a href="#home" class="nav-item active" title="Home">
           <img src="green/logo--green.png" alt="Home" />
         </a>
-        <a href="#search" class="nav-item" title="Search Jobs">
+        <a href="search.html" class="nav-item" title="Search Jobs"> <!-- CHANGED href -->
           <img src="normal/search.png" alt="Search Jobs" />
         </a>
-        <a href="#starred" class="nav-item" title="Starred">
+        <a href="Monetization.html" class="nav-item" title="Starred"> <!-- CHANGED href -->
           <img src="normal/star.png" alt="Starred" />
         </a>
-        <a href="#liked" class="nav-item" title="Liked">
-          <img src="normal/apply.png" alt="Liked" />
+        <a href="favorite.html" class="nav-item" title="Favorite"> <!-- CHANGED href AND title -->
+          <img src="normal/apply.png" alt="Favorite" />
         </a>
-        <a href="#profile" class="nav-item" title="Profile">
+        <a href="user.html" class="nav-item" title="Profile"> <!-- CHANGED href -->
           <img src="normal/user.png" alt="Profile" />
         </a>
       </div>
@@ -1345,24 +1345,26 @@
         const navItems = document.querySelectorAll(".bottom-nav .nav-item");
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
-                 // Prevent default if using href="#" anchors
+                 // Prevent default ONLY if using href="#" anchors (like home)
                 if(item.getAttribute('href')?.startsWith('#')) {
                     e.preventDefault();
                 }
+                // Log regardless of link type
                 console.log(`Nav item clicked: ${item.title}`);
-                 // Add logic to highlight active tab and potentially load content
+
+                // Highlight active tab
                 navItems.forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
 
                  // Example: Reload jobs on home click (simple reset)
-                if (item.title === "Home") {
+                if (item.title === "Home" && item.getAttribute('href') === '#home') {
                    loadJobs();
                 }
-                // Add placeholders for other actions
-                else if (item.title === "Search Jobs") console.log("Navigate to Search View");
-                else if (item.title === "Starred") console.log("Navigate to Starred View");
-                else if (item.title === "Liked") console.log("Navigate to Liked View");
-                else if (item.title === "Profile") console.log("Navigate to Profile View");
+                // Logging for the other actions (actual navigation will happen due to href change)
+                else if (item.title === "Search Jobs") console.log("Navigating to Search View (via search.html)");
+                else if (item.title === "Starred") console.log("Navigating to Starred View (via Monetization.html)");
+                else if (item.title === "Favorite") console.log("Navigating to Favorite View (via favorite.html)");
+                else if (item.title === "Profile") console.log("Navigating to Profile View (via user.html)");
 
             });
         });
