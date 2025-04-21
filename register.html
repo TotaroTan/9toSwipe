@@ -107,7 +107,7 @@
       }
 
       input[type="date"]::-webkit-calendar-picker-indicator {
-        filter: invert(0.8); /* Make calendar icon lighter on dark bg */
+        filter: invert(0.45); /* Make calendar icon lighter on dark bg */
         cursor: pointer;
         position: absolute;
         right: 14px;
@@ -133,16 +133,16 @@
      /* --- MODIFIED: Custom Password Toggle Button using Image (Centered) --- */
       .password-toggle {
         position: absolute;
-        right: 15px;        /* Horizontal position from right edge */
+        right: 20px;        /* Horizontal position from right edge */
         /* Remove top and transform properties */
-        bottom: 15px;       /* Position bottom edge 15px from the input-group bottom */
+        bottom: 18px;       /* Position bottom edge 15px from the input-group bottom */
                             /* Calculation: (Input Height 54px - Icon Height 24px) / 2 = 15px */
         cursor: pointer;
         background: none;
         border: none;
         padding: 0;
-        width: 24px;        /* Set width for the container */
-        height: 24px;       /* Set height for the container */
+        width: 18px;        /* Set width for the container */
+        height: 18px;       /* Set height for the container */
         display: flex;      /* Center image inside button */
         align-items: center;
         justify-content: center;
@@ -165,7 +165,7 @@
         border-radius: 30px;
         padding: 17px;
         font-size: 17px;
-        font-weight: 800; /* Extra bold */
+        font-weight: 700; /* Extra bold */
         cursor: pointer;
         text-align: center;
         width: 100%;
@@ -229,7 +229,7 @@
             class="password-toggle"
             id="password-toggle"
             aria-label="Show password" <!-- Initial Aria Label -->
-          >
+          
               <img src="normal/eye-close.png" alt="Show password" id="toggleIcon"> <!-- Initial Icon -->
           </button>
         </div>
