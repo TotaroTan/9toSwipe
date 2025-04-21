@@ -189,9 +189,9 @@
       /* Specific icon colors */
       .fa-sack-dollar { color: #ffd700; }
       .fa-map-marker-alt { color: #ff5252; }
-      .fa-hourglass-half { color: #4fc3f7; } /* Experience */
-      .fa-pen-nib { color: #ffab40; } /* For Content/Design roles maybe? */
-      .fa-bullhorn { color: #7e57c2; } /* For Marketing/Social roles */
+      .fa-hourglass-half { color: #4fc3f7; } /* Experience - NOW THE ONLY ONE USED */
+      .fa-pen-nib { color: #ffab40; }
+      .fa-bullhorn { color: #7e57c2; }
       .fa-calendar-alt { color: #ff8a65; } /* Deadline */
       .fa-clock { color: #90caf9; } /* Job Type */
 
@@ -931,19 +931,10 @@
         // Icon for favoriting on the card itself (using original apply icon)
         const cardStarIconHtml = `<img src="normal/apply.png" alt="Favorite" class="card-star-icon" />`;
 
-        // Determine appropriate icons for grid based on role type (simple example)
-        let experienceIcon = "fa-hourglass-half"; // Default
-        const titleLower = jobData.title.toLowerCase();
-        if (titleLower.includes("design") || titleLower.includes("creat") || titleLower.includes("ui") || titleLower.includes("ux") || titleLower.includes("art") || titleLower.includes("illustrat")) {
-            experienceIcon = "fa-pen-nib";
-        } else if (titleLower.includes("market") || titleLower.includes("social") || titleLower.includes("advertis") || titleLower.includes("brand") || titleLower.includes("promot") || titleLower.includes("campaign")) {
-             experienceIcon = "fa-bullhorn";
-        } else if (titleLower.includes("develop") || titleLower.includes("engine") || titleLower.includes("programm")) {
-            experienceIcon = "fa-code"; // Example for dev roles
-        } else if (titleLower.includes("analy") || titleLower.includes("data") || titleLower.includes("insight")) {
-            experienceIcon = "fa-chart-bar"; // Example for analytics
-        }
-
+        // ---- START: MODIFICATION for fixed experience icon ----
+        // ALWAYS use the hourglass icon for experience
+        const experienceIcon = "fa-hourglass-half"; // Fixed icon
+        // ---- END: MODIFICATION ----
 
         // Build the inner HTML of the card
         card.innerHTML = `
@@ -960,7 +951,7 @@
                         <div class="info-item"><i class="fas fa-sack-dollar"></i><div class="info-text"><span class="info-label">Salary</span><span class="info-value">${
                           jobData.salary
                         }</span></div></div>
-                         <div class="info-item"><i class="fas ${experienceIcon}"></i><div class="info-text"><span class="info-label">Experience</span><span class="info-value">${ // Use dynamic icon
+                         <div class="info-item"><i class="fas ${experienceIcon}"></i><div class="info-text"><span class="info-label">Experience</span><span class="info-value">${ // NOW ALWAYS uses fa-hourglass-half
                           jobData.experience
                         }</span></div></div>
                         <div class="info-item"><i class="fas fa-calendar-alt"></i><div class="info-text"><span class="info-label">Deadline</span><span class="info-value">${deadline}</span></div></div>
